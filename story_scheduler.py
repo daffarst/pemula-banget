@@ -60,7 +60,9 @@ def read_local_videos(folder):
         (
             path
             for path in folder.iterdir()
-            if path.is_file() and path.suffix.lower() in {".mp4", ".mov"}
+            if not path.is_symlink()
+            and path.is_file()
+            and path.suffix.lower() in {".mp4", ".mov"}
         ),
         key=lambda path: path.name.casefold(),
     )
